@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t mstrejczek/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run mstrejczek/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t mstrejczek/multi-client ./client
+  - docker build -t mstrejczek/multi-server ./server
+  - docker build -t mstrejczek/multi-worker ./worker
+  - docker build -t mstrejczek/multi-nginx ./nginx
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push maroos/multi-client
+  - docker push maroos/multi-server
+  - docker push maroos/multi-worker
+  - docker push maroos/multi-nginx  
