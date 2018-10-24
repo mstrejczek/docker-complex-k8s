@@ -3,16 +3,16 @@ services:
   - docker
 
 before_install:
-  - docker build -t mstrejczek/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t maroos/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run mstrejczek/react-test npm test -- --coverage
+  - docker run maroos/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t mstrejczek/multi-client ./client
-  - docker build -t mstrejczek/multi-server ./server
-  - docker build -t mstrejczek/multi-worker ./worker
-  - docker build -t mstrejczek/multi-nginx ./nginx
+  - docker build -t maroos/multi-client ./client
+  - docker build -t maroos/multi-server ./server
+  - docker build -t maroos/multi-worker ./worker
+  - docker build -t maroos/multi-nginx ./nginx
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
