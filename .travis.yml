@@ -19,4 +19,17 @@ after_success:
   - docker push maroos/multi-client
   - docker push maroos/multi-server
   - docker push maroos/multi-worker
-  - docker push maroos/multi-nginx  
+  - docker push maroos/multi-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-west-1
+  app: docker-complex
+  env: DockerComplex-env
+  bucket_name: elasticbeanstalk-eu-west-1-179742641693
+  bucket_path: docker-complex
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $AWS_SECRET_ACCESS_KEY
