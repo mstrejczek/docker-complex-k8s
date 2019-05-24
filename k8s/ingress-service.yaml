@@ -5,8 +5,16 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    certmanager.k8s.io/cluster-issuer: 'letsencrypt-prod'
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
+  tls:
+    - hosts:
+        - maroos.club
+        - www.maroos.club
+      secretName: maroos-club
   rules:
+    - host: maroos.club
     - http:
         paths:
           - path: /(.*)
