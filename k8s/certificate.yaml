@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: maroos-club-tls
 spec:
-  secretKey: maroos-club
+  secretName: maroos-club
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
